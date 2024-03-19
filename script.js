@@ -48,7 +48,7 @@ window.addEventListener('click', function (event) {
 });
 
 // Toggle the visibility of the navigation menu when the hamburger button is clicked
-document.querySelector('.hamburger').addEventListener('click', function() {
+document.querySelector('.hamburger').addEventListener('click', function () {
     document.querySelector('.nav-container').classList.toggle('show');
 });
 
@@ -61,7 +61,7 @@ function navigateToSection(sectionClass) {
 
 // Get all the quantity input fields
 const quantityInputs = document.querySelectorAll('.quantity');
-
+console.log('ji')
 // Loop through each input field and attach the event listener
 quantityInputs.forEach((input) => {
     input.addEventListener('input', () => {
@@ -69,20 +69,20 @@ quantityInputs.forEach((input) => {
         const priceSpan = card.querySelector('.price'); // Find the price span within the same card
 
         const days = parseInt(input.value);
-        if (!isNaN(days)) {
-            const price = calculatePrice(days); // Function to calculate price based on days
-            priceSpan.textContent = price;
+        const defaultPrice = parseInt(priceSpan.dataset.defaultPrice); // Get the default price stored as a data attribute
+
+        if (!isNaN(days) && !isNaN(defaultPrice)) {
+            const totalPrice = calculateTotalPrice(days, defaultPrice); // Function to calculate total price based on days and default price
+            priceSpan.textContentxt = totalPrice; // Format the total price to two decimal places
         } else {
             priceSpan.textContent = '0'; // Reset price if input is invalid
         }
     });
 });
 
-
-// Function to calculate price based on days
-function calculatePrice(days) {
-    const pricePerDay = 1000;
-    return days * pricePerDay;
+// Function to calculate total price based on days and default price
+function calculateTotalPrice(days, defaultPrice) {
+    return (days * defaultPrice); // Calculate total price without formatting
 }
 
 //Button animation
